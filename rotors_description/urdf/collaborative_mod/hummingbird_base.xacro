@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+<xacro:macro name="launch_hummingbird" params="quad_name holder_link">
+  <group ns="${quad_name}">
+    <robot name="hummingbird" xmlns:xacro="http://ros.org/wiki/xacro">
+      <xacro:include filename="$(find rotors_description)/urdf/collaborative_mod/component_snippets.xacro" />
+      
+      
+      <!-- Instantiate hummingbird "mechanics" -->
+      <xacro:arg name="namespace" value="${quad_name}" default="hummingbird0"/>
+      <xacro:include filename="$(find rotors_description)/urdf/collaborative_mod/hummingbird.xacro">
+      </xacro:include>
+
+      <!-- Instantiate a controller. -->
+      <xacro:controller_plugin_macro namespace="${quad_name}" imu_sub_topic="imu" />
+
+      <!-- <xacro:if value="$(arg enable_mavlink_interface)">
+        Instantiate mavlink telemetry interface.
+        <xacro:default_mavlink_interface namespace="${quad_name}" imu_sub_topic="imu" rotor_count="4" />
+      </xacro:if> -->
+
+      <!-- Mount an ADIS16448 IMU. -->
+      <xacro:default_imu namespace="${quad_name}" parent_link="${quad_name}/base_link" />
+
+      <xacro:ground_truth_imu_and_odometry namespace="${quad_name}" parent_link="${quad_name}/base_link" />
+
+      <!-- <xacro:if value="$(arg enable_logging)">
+        Instantiate a logger
+        <xacro:bag_plugin_macro
+          namespace="${quad_name}"
+          bag_file="$(arg log_file)"
+          rotor_velocity_slowdown_sim="${rotor_velocity_slowdown_sim}"
+          wait_to_record_bag="$(arg wait_to_record_bag)" />
+      </xacro:if>  -->
+    </robot>
+  </group>
+</xacro:macro>
+
+</robot>

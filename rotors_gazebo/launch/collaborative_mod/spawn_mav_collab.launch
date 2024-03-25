@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="mav_name" default="hummingbird"/>
+  <arg name="namespace_quad" default="$(arg mav_name)_payload"/>
+  <arg name="namespace" default="four_quad_payload"/>
+  <arg name="model" default="$(find rotors_description)/urdf/collaborative_mod/four_hummingbirds_payload.xacro"/>
+  <arg name="tf_prefix" default="$(optenv ROS_NAMESPACE)"/>
+  <arg name="enable_ground_truth" default="true"/>
+  <arg name="enable_state_estimator" default="false"/>
+  <arg name="x" default="0.0"/>
+  <arg name="y" default="0.0"/>
+  <arg name="z" default="0.0"/>
+
+  <!-- send the robot XML to param server -->
+  <param name="robot_description" command="
+    $(find xacro)/xacro --inorder '$(arg model)'
+    namespace_quad:=$(arg namespace_quad)
+    enable_ground_truth:=$(arg enable_ground_truth)" 
+    />
+  <param name="tf_prefix" type="string" value="$(arg tf_prefix)" />
+
+  <!-- push robot_description to factory and spawn robot in gazebo -->
+  <node name="spawn_$(arg namespace_quad)" pkg="gazebo_ros" type="spawn_model"
+   args="-param robot_description
+         -urdf 
+         -x $(arg x)
+         -y $(arg y)
+         -z $(arg z)
+         -model $(arg namespace)"
+   respawn="false" output="screen">
+  </node>
+
+  <!-- <group ns="hummingbird0"> -->
+  <!--   <include file="$(find rotors_gazebo)/launch/spawn_mav.launch"> -->
+  <!--     <arg name="mav_name" value="hummingbird" /> -->
+  <!--     <arg name="namespace" value="hummingbird0" /> -->
+  <!--     <arg name="model" value="$(find rotors_description)/urdf/mav_generic_odometry_sensor.gazebo" /> -->
+  <!--     <arg name="enable_logging" value="false" /> -->
+  <!--     <arg name="enable_ground_truth" value="$(arg enable_ground_truth)" /> -->
+  <!--     <arg name="log_file" value="hummingbird"/> -->
+  <!--     <arg name="y" value="0.0"/> -->
+  <!--   </include> -->
+  <!--   <node name="controller_node" pkg="rotors_control" type="roll_pitch_yawrate_thrust_controller_node" output="screen"> -->
+  <!--     <rosparam command="load" file="$(find rotors_gazebo)/resource/roll_pitch_yawrate_thrust_controller_hummingbird.yaml" /> -->
+  <!--     <rosparam command="load" file="$(find rotors_gazebo)/resource/hummingbird.yaml" /> -->
+  <!--     <remap from="odometry" to="odometry_sensor1/odometry" /> -->
+  <!--   </node> -->
+  <!--   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" /> -->
+  <!--   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" /> -->
+  <!-- </group> -->
+
+
+    <!--  <node name="controller_node_1" pkg="rotors_control" type="roll_pitch_yawrate_thrust_controller_node" output="screen"> -->
+    <!--   <rosparam command="load" file="$(find rotors_gazebo)/resource/roll_pitch_yawrate_thrust_controller_hummingbird.yaml" /> -->
+    <!--   <rosparam command="load" file="$(find rotors_gazebo)/resource/hummingbird.yaml" /> -->
+    <!--   <remap from="odometry" to="odometry_sensor1/odometry" /> -->
+    <!-- </node> -->
+
+    <!-- <node name="controller_node_2" pkg="rotors_control" type="roll_pitch_yawrate_thrust_controller_node" output="screen"> -->
+    <!--   <rosparam command="load" file="$(find rotors_gazebo)/resource/roll_pitch_yawrate_thrust_controller_hummingbird.yaml" /> -->
+    <!--   <rosparam command="load" file="$(find rotors_gazebo)/resource/hummingbird.yaml" /> -->
+    <!--   <remap from="odometry" to="odometry_sensor1/odometry" /> -->
+    <!-- </node> -->
+
+    <!-- <node name="controller_node_3" pkg="rotors_control" type="roll_pitch_yawrate_thrust_controller_node" output="screen"> -->
+    <!--   <rosparam command="load" file="$(find rotors_gazebo)/resource/roll_pitch_yawrate_thrust_controller_hummingbird.yaml" /> -->
+    <!--   <rosparam command="load" file="$(find rotors_gazebo)/resource/hummingbird.yaml" /> -->
+    <!--   <remap from="odometry" to="odometry_sensor1/odometry" /> -->
+    <!-- </node> -->
+
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+</launch>
