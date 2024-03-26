@@ -60,7 +60,7 @@
 		enable_base_link = "false"
 		parent_link_holder = "${name_holder_0}"
 		sphere_joint_name = "sphere_${name_quad_0}_${name_holder_0}"
-		offset_holder = "${holder_height}+0.5"
+		offset_holder = "${holder_height+0.05}"
 		>
 
 	</xacro:hummingbird_with_payload_offset>

@@ -37,12 +37,13 @@
   </xacro:macro>
 
   <!-- Macro for sphere joint with force sensor -->
-  <xacro:macro name="sphere_joint" params = "robot_namespace joint_velocity_limit joint_effort_limit parent_link_holder *origin_from_parent">
+  <xacro:macro name="sphere_joint" params = "robot_namespace joint_velocity_limit joint_effort_limit parent_link_holder offset_holder *origin_from_parent">
 
 
     <joint name="${robot_namespace}/sphjoint1" type="continuous">
       <parent link="${parent_link_holder}"/>
       <child link="${robot_namespace}/sphlink_z"/>
+      <origin xyz="0 0 ${offset_holder}" rpy="0 0 0"/>
       <axis xyz="0 0 1" />
       <insert_block name="origin_from_parent"/>
       <limit lower="${-pi/2}" upper="${pi/2}" velocity="${joint_velocity_limit}" effort="${joint_effort_limit}" />
@@ -57,6 +58,7 @@
     <joint name="${robot_namespace}/sphjoint0" type="revolute">
       <parent link="${robot_namespace}/sphlink_z"/>
       <child link="${robot_namespace}/sphlink_y"/>
+      <!-- <origin xyz="0 0 ${offset_holder}" rpy="0 0 0"/> -->
       <axis xyz="0 1 0" />
       <limit lower="${-pi/4}" upper="${pi/4}" velocity="${joint_velocity_limit}" effort="${joint_effort_limit}" />
     </joint>
@@ -70,6 +72,7 @@
     <joint name="${robot_namespace}/sphjoint2" type="revolute">
       <parent link="${robot_namespace}/sphlink_y"/>
       <child link="${robot_namespace}/sphlink_x"/>
+      <!-- <origin xyz="0 0 ${offset_holder}" rpy="0 0 0"/> -->
       <axis xyz="1 0 0" />
       <limit lower="${-pi/4}" upper="${pi/4}" velocity="${joint_velocity_limit}" effort="${joint_effort_limit}" />
     </joint>
@@ -121,6 +124,7 @@
       parent_link_holder = "${parent_link_holder}"
       joint_velocity_limit = "${joint_velocity_limit}"
       joint_effort_limit = "${joint_effort_limit}"
+      offset_holder = "${offset_holder}"
       >
       <origin xyz="0 0 ${offset_holder}" rpy="0 0 0"/>
     </xacro:sphere_joint>
