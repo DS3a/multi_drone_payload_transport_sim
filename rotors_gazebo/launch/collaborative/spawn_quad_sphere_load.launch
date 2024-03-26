@@ -32,14 +32,36 @@
   </node>
 
 
-  <group ns="hummingbird_0">
-      <node name="controller_node_0" pkg="rotors_control" type="roll_pitch_yawrate_thrust_controller_node" output="screen">
+    <node name="controller_node" pkg="rotors_control" type="roll_pitch_yawrate_thrust_controller_node" output="screen" ns="hummingbird_0">
       <rosparam command="load" file="$(find rotors_gazebo)/resource/roll_pitch_yawrate_thrust_controller_hummingbird.yaml" />
       <rosparam command="load" file="$(find rotors_gazebo)/resource/hummingbird.yaml" />
-      <!-- <remap from="/command/motor_speed" to="/gazebo/command/motor_speed" /> -->
-      <remap from="/odometry" to="/odometry_sensor1/odometry" />
+      <remap from="/hummingbird_0/command/motor_speed" to="/hummingbird_0/gazebo/command/motor_speed" />
+      <remap from="/hummingbird_0/odometry" to="/hummingbird_0/ground_truth/odometry" />
     </node>
-  </group>
+
+    <node name="controller_node" pkg="rotors_control" type="roll_pitch_yawrate_thrust_controller_node" output="screen" ns="hummingbird_1">
+      <rosparam command="load" file="$(find rotors_gazebo)/resource/roll_pitch_yawrate_thrust_controller_hummingbird.yaml" />
+      <rosparam command="load" file="$(find rotors_gazebo)/resource/hummingbird.yaml" />
+      <remap from="/hummingbird_1/command/motor_speed" to="/hummingbird_1/gazebo/command/motor_speed" />
+      <remap from="/hummingbird_1/odometry" to="/hummingbird_1/ground_truth/odometry" />
+    </node>
+
+    <node name="controller_node" pkg="rotors_control" type="roll_pitch_yawrate_thrust_controller_node" output="screen" ns="hummingbird_2">
+      <rosparam command="load" file="$(find rotors_gazebo)/resource/roll_pitch_yawrate_thrust_controller_hummingbird.yaml" />
+      <rosparam command="load" file="$(find rotors_gazebo)/resource/hummingbird.yaml" />
+      <remap from="/hummingbird_2/command/motor_speed" to="/hummingbird_2/gazebo/command/motor_speed" />
+      <remap from="/hummingbird_2/odometry" to="/hummingbird_2/ground_truth/odometry" />
+    </node>
+
+    <node name="controller_node" pkg="rotors_control" type="roll_pitch_yawrate_thrust_controller_node" output="screen" ns="hummingbird_3">
+      <rosparam command="load" file="$(find rotors_gazebo)/resource/roll_pitch_yawrate_thrust_controller_hummingbird.yaml" />
+      <rosparam command="load" file="$(find rotors_gazebo)/resource/hummingbird.yaml" />
+      <remap from="/hummingbird_3/command/motor_speed" to="/hummingbird_3/gazebo/command/motor_speed" />
+      <remap from="/hummingbird_3/odometry" to="/hummingbird_3/ground_truth/odometry" />
+    </node>
+
+
+
 
   <!-- <group ns="hummingbird0"> -->
   <!--   <include file="$(find rotors_gazebo)/launch/spawn_mav.launch"> -->
