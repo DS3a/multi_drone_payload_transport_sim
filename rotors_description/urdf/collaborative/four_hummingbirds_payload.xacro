@@ -114,7 +114,7 @@
  	<xacro:default_imu namespace="${name_quad_3}" parent_link="${name_quad_3}/base_link_inertia" />
  	<xacro:default_imu namespace="${payload_name}" parent_link="${payload_name}/base_link_inertia" />
 
-	<xacro:controller_plugin_macro namespace="${name_quad_0}" imu_sub_topic="${name_quad_0}/imu" />
+	<!-- <xacro:controller_plugin_macro namespace="${name_quad_0}" imu_sub_topic="${name_quad_0}/imu" /> -->
 
 
 

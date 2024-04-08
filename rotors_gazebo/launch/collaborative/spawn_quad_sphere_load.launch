@@ -31,7 +31,7 @@
    respawn="false" output="screen">
   </node>
 
-
+<!--
     <node name="controller_node" pkg="rotors_control" type="roll_pitch_yawrate_thrust_controller_node" output="screen" ns="hummingbird_0">
       <rosparam command="load" file="$(find rotors_gazebo)/resource/roll_pitch_yawrate_thrust_controller_hummingbird.yaml" />
       <rosparam command="load" file="$(find rotors_gazebo)/resource/hummingbird.yaml" />
@@ -61,7 +61,7 @@
     </node>
 
 
-
+-->
 
   <!-- <group ns="hummingbird0"> -->
   <!--   <include file="$(find rotors_gazebo)/launch/spawn_mav.launch"> -->
