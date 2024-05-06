@@ -51,6 +51,8 @@ catkin_package(
     geometry_msgs
     mav_msgs
     roscpp
+    rospy
+    nav_msgs
     sensor_msgs
 )
 
@@ -77,4 +79,8 @@ install(TARGETS waypoint_publisher waypoint_publisher_file hovering_example
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+catkin_install_python(PROGRAMS scripts/move_obstacles.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
